@@ -1,15 +1,13 @@
-/*
 package Utils;
 
 import java.io.*;
 import java.util.Properties;
-import java.util.Set;
 
 
 public class PropLoader {
 
     static private Properties prop = new Properties();
-    private static final String fileName = "27ua.properties";
+    private static final String fileName = "rozetka.properties";
     private static String propertiesFilePath;
 
     static {
@@ -23,10 +21,8 @@ public class PropLoader {
         OutputStream output = null;
 
         try {
-            //
             ClassLoader cl = PropLoader.class.getClassLoader();
             propertiesFilePath = new File(cl.getResource(fileName).getFile()).getAbsolutePath();
-            //System.out.println(propertiesFilePath);
             input = new FileInputStream(propertiesFilePath);
             if (input == null) {
                 System.out.println("Sorry, file is unable! " + fileName);
@@ -59,29 +55,5 @@ public class PropLoader {
         return (prop == null) ? String.valueOf("Property is not setted!") : prop.getProperty(key);
     }
 
-    public static void getPropertiesFilePath() {
-        System.out.println(propertiesFilePath);
-
-    }
-
-    public PropLoader getAllPropsValue() {
-        System.out.println("Property file path: " + propertiesFilePath);
-        Set<Object> keys = prop.keySet();
-        for (Object obj : keys) {
-            String key = obj.toString();
-            String value = prop.getProperty(key);
-            System.out.println("[key]" + key + " = " + "[value]" + value);
-        }
-        return this;
-    }
-
-    public PropLoader setPropertyValue(String key, String value) {
-        prop.setProperty(key, value);
-        return this;
-    }
-
 }
 
-
-
-*/

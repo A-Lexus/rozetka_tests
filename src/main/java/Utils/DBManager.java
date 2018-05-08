@@ -3,9 +3,9 @@ package Utils;
 import java.sql.*;
 import java.sql.DriverManager;
 import java.util.HashMap;
+import java.util.Iterator;
 
 public class DBManager {
-
 
     //  Database credentials
     private String HOST;
@@ -21,7 +21,7 @@ public class DBManager {
 
 
     Connection conn = null;
-    Statement stmt = null;
+    PreparedStatement preparedStatement = null;
 
     ResultSetMetaData rsmd;
 
@@ -30,49 +30,44 @@ public class DBManager {
         this.HOST = "localhost";
         this.USER = "root";
         this.PASS = "UFL6szTL@2012";
-        this.DB_NAME = "test_db";
+        this.DB_NAME = "tutorial_database";
         this.DB_PORT = "3306";
 
-        dbUrl = "jdbc:mysql://" + HOST + ':' + DB_PORT + '/' + DB_NAME;
+        dbUrl = "jdbc:mysql://" + HOST + ':' + DB_PORT + '/' + DB_NAME + "?useUnicode=yes&characterEncoding=UTF-8";
     }
 
-    static String s;
-
-    public void saveItemAndPriceToDB(String itemName, Integer itemPrice) {
-
+    public void sendDataWhichConfirmedStatement(HashMap<String, Integer> namesAndPrices, String nameContains,
+                                                int minPrice, int maxPrice) {
         try {
-            //STEP 2: Register JDBC driver
             Class.forName(DB_DRIVER);
 
-            //STEP 3: Open a connection
             System.out.println("Connecting to database...");
             conn = DriverManager.getConnection(dbUrl, USER, PASS);
 
-//            HashMap<String, Integer> hs = new HashMap<String, Integer>(powderPrice.clone());
             //STEP 4: Execute a query
-            stmt = conn.createStatement();
-            System.out.println("Creating statement...");
-            String item = "\"" + itemName + "\"";
-            int price = itemPrice;
-            String query = "INSERT INTO rozetka_powder_test (ITEM_NAME,PRICE) " +
-                    "VALUE(\"" + item + "\"," + price + ");";
+            System.out.println("Creating INSERT statement...");
+            String query = "INSERT INTO powder_test(ITEM_NAME,PRICE) VALUE(?,?);";
+            preparedStatement = conn.prepareStatement(query);
 
-            rs = stmt.executeQuery(query);
+            Iterator<String> it = namesAndPrices.keySet().iterator();
+            while (it.hasNext()) {
+                String itemName = it.next();
+                int itemPrice = namesAndPrices.get(itemName);
+                boolean first = itemName.contains(nameContains.toLowerCase()) && itemPrice >= minPrice;
+                boolean second = itemName.contains(nameContains.toLowerCase()) && maxPrice >= itemPrice;
+                if (first | second) {
+                    preparedStatement.setString(1, itemName);
+                    preparedStatement.setInt(2, itemPrice);
 
+                    preparedStatement.execute();
+                }
+            }
+            conn.close();
             //STEP 5: Clean-up environment
         } catch (Exception e) {
             //Handle errors for JDBC
             e.printStackTrace();
-        } finally {
-            //finally block used to close resources
-       /*     try {
-                stmt.close();
-                conn.close();
-                System.out.println("DB connection is closed!");
-            } catch (SQLException se) {
-                se.printStackTrace();
-            }//end finally try*/
-        }//end try
+        }
     }
 
 }
