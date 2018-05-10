@@ -3,7 +3,6 @@ package ua.com.rozetka;
 import Utils.DBManager;
 import Utils.MyExcelWriter;
 import org.testng.annotations.AfterTest;
-import ua.com.rozetka.pages.LeftSideMenu;
 import ua.com.rozetka.pages.MainPage;
 import ua.com.rozetka.pages.ProductsFromCategoryPage;
 
