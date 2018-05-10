@@ -29,7 +29,7 @@ public class DBManager {
 
         this.HOST = "localhost";
         this.USER = "root";
-        this.PASS = "UFL6szTL@2012";
+        this.PASS = "**********";
         this.DB_NAME = "test_db";
         this.DB_PORT = "3306";
 
