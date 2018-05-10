@@ -1,8 +1,6 @@
 package Utils;
 
-import javax.activation.DataHandler;
-import javax.activation.DataSource;
-import javax.activation.FileDataSource;
+import javax.activation.*;
 import javax.mail.*;
 import javax.mail.internet.*;
 import java.io.*;
@@ -60,8 +58,8 @@ public class MyFileManager {
 
     public static void sendFileToStatedRecipients(String recipientsList, String attachFile) {
 
-        final String from = "********";//change accordingly
-        final String password = "*********";//change accordingly
+        String from = PropLoader.getProp("mail");
+        String password = PropLoader.getProp("password");
 
         Properties props = System.getProperties();
         String host = "smtp.gmail.com";

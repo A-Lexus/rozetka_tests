@@ -1,2 +1,2 @@
-a.sokhnenko@gmail.com
-a.sokhnenko@ukr.net
+someMail@gmail.com
+someMail@ukr.net

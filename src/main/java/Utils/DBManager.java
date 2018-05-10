@@ -30,7 +30,7 @@ public class DBManager {
         this.HOST = "localhost";
         this.USER = "root";
         this.PASS = "UFL6szTL@2012";
-        this.DB_NAME = "tutorial_database";
+        this.DB_NAME = "test_db";
         this.DB_PORT = "3306";
 
         dbUrl = "jdbc:mysql://" + HOST + ':' + DB_PORT + '/' + DB_NAME + "?useUnicode=yes&characterEncoding=UTF-8";
@@ -46,7 +46,7 @@ public class DBManager {
 
             //STEP 4: Execute a query
             System.out.println("Creating INSERT statement...");
-            String query = "INSERT INTO powder_test(ITEM_NAME,PRICE) VALUE(?,?);";
+            String query = "INSERT INTO rozetka_powder_test (ITEM_NAME,PRICE) VALUE(?,?);";
             preparedStatement = conn.prepareStatement(query);
 
             Iterator<String> it = namesAndPrices.keySet().iterator();

@@ -1,5 +1,7 @@
 /.git
 /.idea
 /target
+/test-data/FirstExcelFile.xls
+/test-data/rozetkaTest.txt
 output.txt
 *.iml
